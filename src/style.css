@@ -1,0 +1,139 @@
+body {
+  background-image: url("http://localhost:3000/wavey-fingerprint.svg");
+  color: whitesmoke !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: lighter;
+}
+
+aside {
+  background-color: rgb(20, 28, 38);
+  position: fixed;
+  margin: -10px;
+  min-width: 40px;
+  height: 100%;
+  z-index: 10;
+}
+
+main {
+  flex: 5;
+  margin-left: 45px;
+}
+
+button {
+  background-color: dodgerblue;
+  color: whitesmoke;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 10% 0% 10% 0%;
+}
+
+button:hover {
+  background-color: deepskyblue;
+}
+
+td {
+  text-align: center;
+}
+.menu-link {
+  padding: 10px;
+  margin: 5px;
+  font-size: 1.2rem;
+  transition: all 0.5s ease-out;
+}
+
+.menu-link:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.menu-link a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.menu-link-content {
+  font-size: 0.9rem;
+}
+
+.full-aside {
+  width: 200px;
+}
+
+.side-menu-pin {
+  float: right;
+  color: antiquewhite;
+  font-size: 1.25rem;
+}
+
+.side-menu-pin:hover {
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.user-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.user-box input {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  border: none;
+  color: whitesmoke;
+  transition: all 0.5s ease-out;
+}
+
+.user-box input::placeholder {
+  color: antiquewhite;
+}
+.user-box input:hover {
+  transform: scale(1.05);
+}
+
+.about-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.technologies {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  font-size: 2.25rem;
+}
+
+.algo-box {
+  background-color: rgb(20, 28, 38);
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 10px;
+  border-radius: 5%;
+}
+
+.algo-box:hover {
+  transform: scale(1.02);
+}
+
+.algo-box-top {
+  filter: brightness(0.8) contrast(1.1);
+}
+
+.algo-box-body {
+  padding: 30px;
+  border-top: 1px solid dodgerblue;
+}
+
+.intro-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
