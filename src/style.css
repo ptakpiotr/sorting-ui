@@ -31,7 +31,7 @@ button {
 }
 
 button:hover {
-  background-color: deepskyblue;
+  background-color: #00bfff;
 }
 
 td {
@@ -141,4 +141,20 @@ td {
 a {
   color: whitesmoke;
   text-decoration: none;
+}
+
+.algo-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.sketch-div {
+  min-width: 800px;
+  min-height: 500px;
+}
+.drop-item {
+  padding: 20px;
+  color: aquamarine;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid whitesmoke;
 }

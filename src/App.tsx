@@ -4,6 +4,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import zustand from "zustand";
+import { persist } from "zustand/middleware";
+import Enumerable from "linq";
 import About from "./components/About";
 import AlgoInfo from "./components/AlgoInfo";
 import Home from "./components/Home";
@@ -11,6 +13,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import SideMenu from "./components/SideMenu";
 import { IAlgorithmsInfo } from "./Types";
+import Settings from "./components/Settings";
 
 export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
   algorithms: [
@@ -41,7 +44,20 @@ export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
 // potem nastapi dump do localStorage
 // bedzie rowniez info odnosnie
 
-export const useResultsStore = zustand((set, get) => {});
+export const useResultsStore = zustand(
+  persist(
+    (set, get) => ({
+      numbers: Enumerable.range(0, 10)
+        .toArray()
+        .map(() => Math.floor(Math.random() * 20) - 25),
+      setNumbers: (nums: number[]) => set({ numbers: nums }),
+    }),
+    {
+      name: "numbers",
+      getStorage: () => localStorage,
+    }
+  )
+);
 
 function App() {
   return (
@@ -54,6 +70,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/algoinfo/:id" element={<AlgoInfo />} />
           </Routes>
         </BrowserRouter>

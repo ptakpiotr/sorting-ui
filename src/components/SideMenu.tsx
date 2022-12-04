@@ -5,6 +5,7 @@ import {
   AiFillPushpin,
   AiOutlineUserSwitch,
   AiOutlineUserAdd,
+  AiOutlineSetting,
 } from "react-icons/ai";
 import MenuLink from "./MenuLink";
 function SideMenu() {
@@ -60,6 +61,12 @@ function SideMenu() {
         icon={<AiOutlineUserAdd color={"whitesmoke"} />}
         href={"/register"}
         title="Register"
+        fullWidth={fullWidthClass.length > 0 || alwaysFull}
+      />
+      <MenuLink
+        icon={<AiOutlineSetting color={"whitesmoke"} />}
+        href={"/settings"}
+        title="Settings"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
     </aside>

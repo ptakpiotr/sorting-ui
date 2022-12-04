@@ -7,13 +7,9 @@ export interface IAlgorithmTimeComplexity {
   complexity: string;
 }
 
-export interface ISortable {
-  values: ISortableValue[];
-}
-
-export interface ISortableValue {
-  value: number;
-  state: Actions;
+export interface ISettings {
+  defaultDrop: number;
+  defaultColor: string;
 }
 
 export enum Actions {
@@ -21,3 +17,5 @@ export enum Actions {
   COMPARE,
   SWAP,
 }
+
+export const AcceptedType = "NUMBER";

@@ -1,12 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import { draw } from "patternomaly";
+import React, { useRef, useState } from "react";
 import p5 from "p5";
-import { Actions, ISortable, ISortableValue } from "../Types";
+import { Actions } from "../Types";
 import Enumerable from "linq";
+import DropZone from "./DropZone";
+import DropItem from "./DropItem";
+import { useResultsStore } from "../App";
+import DragArea from "./DragArea";
 
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
-  let data: number[] = [-2, 18, 1, 2, 4, 0, -11, 2, 55, 3];
+  const [show, setShow] = useState<boolean>(false);
+  const numbers = useResultsStore((st: any) => st.numbers);
+  let data: number[] = [...numbers];
   const oldData: number[] = [...data];
 
   const sketch = (p: any) => {
@@ -95,18 +100,20 @@ function Vis() {
     }
 
     p.draw = () => {
-      p.background(0, 0, 0, 0);
-      for (let i = 0; i < oldData.length; i++) {
-        drawNumber(i, oldData[i], 100, Actions.COMPARE);
-      }
-      insertionSort(chosenIndex++);
-      p.clear();
-      for (let i = 0; i < data.length; i++) {
-        drawNumber(i, data[i], p.height - 100, Actions.SORT);
-      }
-      if (chosenIndex > data.length) {
-        console.log("END");
-        p.noLoop();
+      if (show) {
+        p.background(0, 0, 0, 0);
+        for (let i = 0; i < oldData.length; i++) {
+          drawNumber(i, oldData[i], 100, Actions.COMPARE);
+        }
+        insertionSort(chosenIndex++);
+        p.clear();
+        for (let i = 0; i < data.length; i++) {
+          drawNumber(i, data[i], p.height - 100, Actions.SORT);
+        }
+        if (chosenIndex > data.length) {
+          console.log("END");
+          p.noLoop();
+        }
       }
     };
   };
@@ -114,9 +121,18 @@ function Vis() {
   return (
     <div>
       <div>
-        <div ref={sketchDivRef}></div>
+        <div ref={sketchDivRef} className="sketch-div"></div>
         <div>
           <button>Add</button>
+          <button
+            onClick={() => {
+              setShow((prev) => !prev);
+            }}
+          >
+            Show
+          </button>
+          <DropZone />
+          <DragArea />
         </div>
       </div>
     </div>
