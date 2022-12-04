@@ -1,28 +1,36 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+interface IProps {
+  description: string;
+  title: string;
+  link: string;
+}
 
-function AlgoBox() {
+function AlgoBox({ description, title, link }: IProps) {
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>();
-  const desc = "Some description...";
-  const title = "Bubble sort";
 
   return (
-    <div
-      className="algo-box"
-      onMouseEnter={() => {
-        setShowMoreInfo(true);
-      }}
-      onMouseLeave={() => {
-        setShowMoreInfo(false);
-      }}
-    >
-      <div className="algo-box-top">
-        <img
-          src="https://via.placeholder.com/350x180"
-          alt={"Algorithm photo"}
-        />
+    <Link to={link}>
+      <div
+        className="algo-box"
+        onMouseEnter={() => {
+          setShowMoreInfo(true);
+        }}
+        onMouseLeave={() => {
+          setShowMoreInfo(false);
+        }}
+      >
+        <div className="algo-box-top">
+          <img
+            src="https://via.placeholder.com/350x180"
+            alt={"Algorithm photo"}
+          />
+        </div>
+        <div className="algo-box-body">
+          {showMoreInfo ? `${description.substring(0, 10)}...` : title}
+        </div>
       </div>
-      <div className="algo-box-body">{showMoreInfo ? desc : title}</div>
-    </div>
+    </Link>
   );
 }
 

@@ -5,6 +5,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import zustand from "zustand";
 import About from "./components/About";
+import AlgoInfo from "./components/AlgoInfo";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -53,6 +54,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/algoinfo/:id" element={<AlgoInfo />} />
           </Routes>
         </BrowserRouter>
       </MathJaxContext>

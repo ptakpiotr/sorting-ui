@@ -137,3 +137,8 @@ td {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+a {
+  color: whitesmoke;
+  text-decoration: none;
+}
