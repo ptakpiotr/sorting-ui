@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MathJax } from "better-react-mathjax";
 import { useAlgorithmStore } from "../App";
 import {
@@ -9,10 +9,33 @@ import {
   SiNodedotjs,
   SiMongodb,
 } from "react-icons/si";
+import { io } from "socket.io-client";
+
 import LeaveOpinion from "./LeaveOpinion";
 import Rate from "./Rate";
+const socket = io(process.env.REACT_APP_BACKEND_URL!);
+
 function About() {
+  const [text, setText] = useState<string>("");
+  const [rating, setRating] = useState<number>(0);
   const algorithms = useAlgorithmStore((state) => state.algorithms);
+
+  const handleClick = () => {
+    socket.emit("newOpinion", {
+      text,
+      rating,
+    });
+  };
+
+  useEffect(() => {
+    socket.on("opinions", () => {
+      console.log("Opinion succesfully added");
+    });
+    return () => {
+      socket.off("opinions");
+    };
+  }, []);
+
   return (
     <main className="about-main">
       <p>This is the site made for Internet Techinques project</p>
@@ -50,14 +73,19 @@ function About() {
         </div>
       </div>
       <div className="rate-section">
-        <LeaveOpinion minLength={10} maxLength={60} />
+        <LeaveOpinion
+          minLength={10}
+          maxLength={60}
+          text={text}
+          setText={setText}
+        />
         <Rate
           maxScore={5}
           fun={(a) => {
-            console.log(a);
+            setRating(a);
           }}
         />
-        <button>Submit opinion</button>
+        <button onClick={handleClick}>Submit opinion</button>
       </div>
     </main>
   );

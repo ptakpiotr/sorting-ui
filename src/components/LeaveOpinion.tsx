@@ -5,10 +5,16 @@ import * as yup from "yup";
 interface IProps {
   minLength: number;
   maxLength: number;
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function LeaveOpinion({ minLength, maxLength }: IProps) {
-  const [text, setText] = useState<string>("");
+export default function LeaveOpinion({
+  minLength,
+  maxLength,
+  text,
+  setText,
+}: IProps) {
   const [showValidationMessage, setShowValidationMessage] =
     useState<boolean>(true);
   const [validationMessage, _] = useState<string>(
