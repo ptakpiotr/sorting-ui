@@ -104,6 +104,15 @@ td {
   flex-direction: column;
 }
 
+.rate-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  padding: 15px;
+}
+
 .technologies {
   display: flex;
   flex-direction: row;
@@ -157,4 +166,45 @@ a {
   color: aquamarine;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid whitesmoke;
+}
+
+.opinionText {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: whitesmoke;
+  max-width: 50vw;
+  min-width: 50vw;
+  max-height: 150px;
+  min-height: 150px;
+  resize: none;
+}
+
+.opinionBear {
+  position: relative;
+  right: 24px;
+  font-size: 24px;
+  color: dodgerblue;
+}
+
+.validationMessage {
+  font-size: 10px;
+  color: blueviolet;
+}
+
+.rate {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.singleBean {
+  padding: 5px;
+  margin: 5px;
+  font-size: 24px;
+  color: dodgerblue;
+}
+.singleBeanInactive {
+  padding: 5px;
+  margin: 5px;
+  font-size: 24px;
+  color: darkslategray;
 }

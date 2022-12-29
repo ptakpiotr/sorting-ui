@@ -2,13 +2,15 @@ import React from "react";
 import { MathJax } from "better-react-mathjax";
 import { useAlgorithmStore } from "../App";
 import {
-  SiNestjs,
   SiReact,
   SiTypescript,
-  SiPostgresql,
   SiJsonwebtokens,
   SiMicrosoftazure,
+  SiNodedotjs,
+  SiMongodb,
 } from "react-icons/si";
+import LeaveOpinion from "./LeaveOpinion";
+import Rate from "./Rate";
 function About() {
   const algorithms = useAlgorithmStore((state) => state.algorithms);
   return (
@@ -39,13 +41,23 @@ function About() {
         <p>Technologies used in this project:</p>
 
         <div className="technologies">
-          <SiNestjs />
+          <SiNodedotjs />
           <SiReact />
           <SiTypescript />
-          <SiPostgresql />
+          <SiMongodb />
           <SiJsonwebtokens />
           <SiMicrosoftazure />
         </div>
+      </div>
+      <div className="rate-section">
+        <LeaveOpinion minLength={10} maxLength={60} />
+        <Rate
+          maxScore={5}
+          fun={(a) => {
+            console.log(a);
+          }}
+        />
+        <button>Submit opinion</button>
       </div>
     </main>
   );

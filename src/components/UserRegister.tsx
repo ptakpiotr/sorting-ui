@@ -42,6 +42,7 @@ function UserRegister() {
             .then((dt) => {
               localStorage.removeItem("token");
               localStorage.setItem("token", dt.data.token);
+              window.location.reload();
             })
             .catch((err) => {
               console.error(err);

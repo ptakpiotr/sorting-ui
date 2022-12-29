@@ -7,6 +7,13 @@ export interface IAlgorithmTimeComplexity {
   complexity: string;
 }
 
+export interface IAlgorithmCardInfo {
+  _id: string;
+  name: string;
+  photo?: string;
+  complexity?: string;
+}
+
 export enum Actions {
   SORT,
   COMPARE,
