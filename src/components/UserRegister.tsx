@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import * as yup from "yup";
 
@@ -5,7 +6,7 @@ function UserRegister() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [validObject, setValidObject] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   const shape = yup.object().shape({
     email: yup.string().email().required(),
@@ -31,11 +32,30 @@ function UserRegister() {
         confirmPassword,
       })
       .then((dt) => {
-        console.log(dt);
-        setValidObject(dt);
+        if (dt) {
+          axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/api/user/register`, {
+              email,
+              password,
+              confirmPassword,
+            })
+            .then((dt) => {
+              localStorage.removeItem("token");
+              localStorage.setItem("token", dt.data.token);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       })
       .catch((err) => {
-        setValidObject(false);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       });
   };
   return (
@@ -44,6 +64,7 @@ function UserRegister() {
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -51,6 +72,7 @@ function UserRegister() {
         <input
           type="password"
           placeholder="Password"
+          value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -58,11 +80,12 @@ function UserRegister() {
         <input
           type="password"
           placeholder="Confirm password"
+          value={confirmPassword}
           onChange={(e) => {
             setConfirmPassword(e.target.value);
           }}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );

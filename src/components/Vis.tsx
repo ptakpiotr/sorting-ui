@@ -123,14 +123,20 @@ function Vis() {
       <div>
         <div ref={sketchDivRef} className="sketch-div"></div>
         <div>
-          <button>Add</button>
-          <button
-            onClick={() => {
-              setShow((prev) => !prev);
-            }}
-          >
-            Show
-          </button>
+          {!show ? (
+            <span>
+              <button>Add</button>
+              <button
+                onClick={() => {
+                  setShow((prev) => !prev);
+                }}
+              >
+                Show
+              </button>
+            </span>
+          ) : (
+            <></>
+          )}
           <DropZone />
           <DragArea />
         </div>

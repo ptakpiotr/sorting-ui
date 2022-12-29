@@ -7,11 +7,6 @@ export interface IAlgorithmTimeComplexity {
   complexity: string;
 }
 
-export interface ISettings {
-  defaultDrop: number;
-  defaultColor: string;
-}
-
 export enum Actions {
   SORT,
   COMPARE,
@@ -19,3 +14,8 @@ export enum Actions {
 }
 
 export const AcceptedType = "NUMBER";
+
+export interface ISettings {
+  allowAddingItems: boolean;
+  displayAlgorithmsDescription: boolean;
+}

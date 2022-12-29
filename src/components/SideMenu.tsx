@@ -6,12 +6,17 @@ import {
   AiOutlineUserSwitch,
   AiOutlineUserAdd,
   AiOutlineSetting,
+  AiOutlineLogout,
 } from "react-icons/ai";
 import MenuLink from "./MenuLink";
 function SideMenu() {
   const asideRef = useRef<HTMLDivElement>(null);
   const [fullWidthClass, setFullWidthClass] = useState<string>("");
   const [alwaysFull, setAlwaysFull] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  useEffect(() => {
+    setLoggedIn(localStorage.getItem("token") !== null);
+  }, []);
 
   const handleHover = (enter: boolean) => {
     setFullWidthClass(enter ? "full-aside" : "");
@@ -52,23 +57,34 @@ function SideMenu() {
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       <MenuLink
-        icon={<AiOutlineUserSwitch color={"whitesmoke"} />}
-        href={"/login"}
-        title="Login"
-        fullWidth={fullWidthClass.length > 0 || alwaysFull}
-      />
-      <MenuLink
-        icon={<AiOutlineUserAdd color={"whitesmoke"} />}
-        href={"/register"}
-        title="Register"
-        fullWidth={fullWidthClass.length > 0 || alwaysFull}
-      />
-      <MenuLink
         icon={<AiOutlineSetting color={"whitesmoke"} />}
         href={"/settings"}
         title="Settings"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
+      {loggedIn ? (
+        <MenuLink
+          icon={<AiOutlineLogout color={"whitesmoke"} />}
+          href={"/logout"}
+          title="Logout"
+          fullWidth={fullWidthClass.length > 0 || alwaysFull}
+        />
+      ) : (
+        <>
+          <MenuLink
+            icon={<AiOutlineUserSwitch color={"whitesmoke"} />}
+            href={"/login"}
+            title="Login"
+            fullWidth={fullWidthClass.length > 0 || alwaysFull}
+          />
+          <MenuLink
+            icon={<AiOutlineUserAdd color={"whitesmoke"} />}
+            href={"/register"}
+            title="Register"
+            fullWidth={fullWidthClass.length > 0 || alwaysFull}
+          />
+        </>
+      )}
     </aside>
   );
 }

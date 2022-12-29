@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import Switch from "react-switch";
 
-function MySwitch() {
+interface IProps {
+  settingName: string;
+  changeOption: (optionKey: string, optionValue: boolean) => void;
+}
+
+function MySwitch({ settingName, changeOption }: IProps) {
   const [checked, setChecked] = useState<boolean>(false);
   const onChanged = (checked: boolean) => {
     setChecked(checked);
+    changeOption(settingName, checked);
   };
   return (
     <Switch

@@ -1,10 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import * as yup from "yup";
 
 function UserBox() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [validObject, setValidObject] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   const shape = yup.object().shape({
     email: yup.string().email().required(),
@@ -19,10 +20,27 @@ function UserBox() {
         password,
       })
       .then((dt) => {
-        setValidObject(dt);
+        if (dt) {
+          axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/api/user/login`, {
+              email,
+              password,
+            })
+            .then((dt) => {
+              localStorage.removeItem("token");
+              localStorage.setItem("token", dt.data.token);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+
+        setEmail("");
+        setPassword("");
       })
       .catch((err) => {
-        setValidObject(false);
+        setEmail("");
+        setPassword("");
       });
   };
   return (
@@ -31,6 +49,7 @@ function UserBox() {
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -38,11 +57,13 @@ function UserBox() {
         <input
           type="password"
           placeholder="Password"
+          value={password}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
         <button type="submit">Login</button>
+        <span>{message}</span>
       </form>
     </div>
   );

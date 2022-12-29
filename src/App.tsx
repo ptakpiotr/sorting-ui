@@ -12,8 +12,10 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import SideMenu from "./components/SideMenu";
-import { IAlgorithmsInfo } from "./Types";
+import { IAlgorithmsInfo, ISettings } from "./Types";
 import Settings from "./components/Settings";
+import AuthRoute from "./components/Universal/AuthRoute";
+import Logout from "./components/Logout";
 
 export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
   algorithms: [
@@ -59,6 +61,15 @@ export const useResultsStore = zustand(
   )
 );
 
+export const useSettingsStore = zustand((set, get) => ({
+  settings: {
+    allowAddingItems: true,
+    displayAlgorithmsDescription: true,
+  },
+  setSettingsOption: (settings: ISettings) =>
+    set({ settings: { ...settings } }),
+}));
+
 function App() {
   return (
     <DndProvider backend={HTML5Backend}>
@@ -69,8 +80,16 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route
+              path="/settings"
+              element={
+                <AuthRoute>
+                  <Settings />
+                </AuthRoute>
+              }
+            />
             <Route path="/algoinfo/:id" element={<AlgoInfo />} />
           </Routes>
         </BrowserRouter>
