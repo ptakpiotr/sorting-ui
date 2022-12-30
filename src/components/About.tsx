@@ -13,7 +13,12 @@ import { io } from "socket.io-client";
 
 import LeaveOpinion from "./LeaveOpinion";
 import Rate from "./Rate";
-const socket = io(process.env.REACT_APP_BACKEND_URL!);
+import AuthComponent from "./Universal/AuthComponent";
+const socket = io(process.env.REACT_APP_BACKEND_URL!, {
+  extraHeaders: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+});
 
 function About() {
   const [text, setText] = useState<string>("");
@@ -25,6 +30,7 @@ function About() {
       text,
       rating,
     });
+    setText("");
   };
 
   useEffect(() => {
@@ -72,21 +78,23 @@ function About() {
           <SiMicrosoftazure />
         </div>
       </div>
-      <div className="rate-section">
-        <LeaveOpinion
-          minLength={10}
-          maxLength={60}
-          text={text}
-          setText={setText}
-        />
-        <Rate
-          maxScore={5}
-          fun={(a) => {
-            setRating(a);
-          }}
-        />
-        <button onClick={handleClick}>Submit opinion</button>
-      </div>
+      <AuthComponent verifyAdmin={false}>
+        <div className="rate-section">
+          <LeaveOpinion
+            minLength={1}
+            maxLength={60}
+            text={text}
+            setText={setText}
+          />
+          <Rate
+            maxScore={5}
+            fun={(a) => {
+              setRating(a);
+            }}
+          />
+          <button onClick={handleClick}>Submit opinion</button>
+        </div>
+      </AuthComponent>
     </main>
   );
 }

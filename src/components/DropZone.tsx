@@ -31,7 +31,7 @@ function DropZone() {
   const schema = yup.object({
     num: yup.number().min(-15).max(50).required(),
   });
-  return <div ref={dropRef}>DropZone</div>;
+  return <div ref={dropRef} className={"drop-zone"}>Drop here...</div>;
 }
 
 export default DropZone;

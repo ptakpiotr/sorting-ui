@@ -4,10 +4,11 @@ import Switch from "react-switch";
 interface IProps {
   settingName: string;
   changeOption: (optionKey: string, optionValue: boolean) => void;
+  basicChecked: boolean;
 }
 
-function MySwitch({ settingName, changeOption }: IProps) {
-  const [checked, setChecked] = useState<boolean>(false);
+function MySwitch({ settingName, changeOption, basicChecked }: IProps) {
+  const [checked, setChecked] = useState<boolean>(basicChecked);
   const onChanged = (checked: boolean) => {
     setChecked(checked);
     changeOption(settingName, checked);

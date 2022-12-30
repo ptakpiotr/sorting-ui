@@ -44,6 +44,7 @@ export default function LeaveOpinion({
         onChange={(e) => {
           setText(e.target.value);
         }}
+        value={text}
       ></textarea>
       <RiBearSmileLine className="opinionBear" />
       {showValidationMessage ? (

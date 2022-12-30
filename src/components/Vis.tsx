@@ -4,20 +4,28 @@ import { Actions } from "../Types";
 import Enumerable from "linq";
 import DropZone from "./DropZone";
 import DropItem from "./DropItem";
-import { useResultsStore } from "../App";
+import { useResultsStore, useSettingsStore } from "../App";
 import DragArea from "./DragArea";
+import shallow from "zustand/shallow";
 
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<boolean>(false);
   const numbers = useResultsStore((st: any) => st.numbers);
+  const settings = useSettingsStore(
+    (st: any) => ({
+      allowAddingItems: st.settings.allowAddingItems,
+      displayAlgorithmsDescription: st.settings.displayAlgorithmsDescription,
+    }),
+    shallow
+  );
   let data: number[] = [...numbers];
   const oldData: number[] = [...data];
 
   const sketch = (p: any) => {
     let chosenIndex = 0;
     p.setup = () => {
-      p.createCanvas(800, 500);
+      p.createCanvas(600, 200);
       p.frameRate(1);
     };
 
@@ -28,7 +36,7 @@ function Vis() {
       state: Actions
     ) {
       p.fill("red");
-      p.rect(i * 40 + 5, height, 30, -value * 5);
+      p.rect(i * 40 + 5, height, 30, -value * 2);
       p.fill(255);
       p.noStroke();
       p.text(`${value}`, i * 40 + 5, height);
@@ -137,8 +145,17 @@ function Vis() {
           ) : (
             <></>
           )}
-          <DropZone />
-          <DragArea />
+          {settings.allowAddingItems && !show ? (
+            <>
+              <div>
+                Aby dodać liczbę do sortowania upuść w obszarze poniżej:
+              </div>
+              <DropZone />
+              <DragArea />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

@@ -154,7 +154,7 @@ a {
 
 .algo-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .sketch-div {
@@ -207,4 +207,19 @@ a {
   margin: 5px;
   font-size: 24px;
   color: darkslategray;
+}
+
+.not-authorized-msg {
+  color: tomato;
+  font-weight: bold;
+  margin: 5px;
+  padding: 5px;
+  word-wrap: normal;
+}
+
+.drop-zone {
+  padding: 20px;
+  border: 1px solid whitesmoke;
+  width: 65px;
+  margin-bottom: 10px;
 }
