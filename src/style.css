@@ -210,10 +210,12 @@ a {
 }
 
 .not-authorized-msg {
+  display: inline-block;
   color: tomato;
+  border: 1px solid maroon;
   font-weight: bold;
-  margin: 5px;
-  padding: 5px;
+  margin: 35px;
+  padding: 10px;
   word-wrap: normal;
 }
 
@@ -257,6 +259,15 @@ td:nth-of-type(2n):hover {
   border-bottom: 1px solid dodgerblue;
   animation: 1s loaderAnim ease-in infinite;
 }
+.delete-user-btn {
+  color: tomato;
+}
+
+.delete-user-btn:hover {
+  color: maroon;
+  cursor: pointer;
+  transform: scale(1.2);
+}
 
 @keyframes loaderAnim {
   from {
@@ -269,4 +280,14 @@ td:nth-of-type(2n):hover {
 
 h1::first-letter {
   text-transform: uppercase;
+}
+
+.main-img {
+  max-width: 70vw;
+}
+
+@media (min-width: 768px) {
+  .main-img {
+    max-width: 50vw;
+  }
 }

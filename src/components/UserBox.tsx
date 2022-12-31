@@ -5,8 +5,7 @@ import * as yup from "yup";
 function UserBox() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
-
+  const [message, _] = useState<string>("");
   const shape = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -29,6 +28,7 @@ function UserBox() {
             .then((dt) => {
               localStorage.removeItem("token");
               localStorage.setItem("token", dt.data.token);
+              localStorage.setItem("profile", JSON.stringify(dt.data.profile));
               window.location.reload();
             })
             .catch((err) => {

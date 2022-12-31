@@ -21,7 +21,6 @@ import {
   ISettingsState,
 } from "./Types";
 import Logout from "./components/Logout";
-import History from "./components/History";
 import AuthorizedSettings from "./components/AuthorizedSettings";
 import AuthorizedHistory from "./components/AuthorizedHistory";
 
@@ -50,10 +49,6 @@ export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
   ],
 }));
 
-// store w ktorym bede przetrzymywal wyniki z sortowan (a raczej liczby wprowadzone przez usera + mozliwosc randomowego generowania wartosci)
-// potem nastapi dump do localStorage
-// bedzie rowniez info odnosnie
-
 export const useResultsStore = zustand(
   persist<IResultsState>(
     (set, get) => ({
@@ -71,8 +66,10 @@ export const useResultsStore = zustand(
 
 export const useSettingsStore = zustand<ISettingsState>((set, get) => ({
   settings: {
-    allowAddingItems: true,
-    displayAlgorithmsDescription: true,
+    ...JSON.parse(
+      localStorage.getItem("profile") ||
+        '{"allowAddingItems":true,"displayAlgorithmsDescription":true,"__v":0}'
+    ),
   },
   setSettingsOption: (settings: ISettings) =>
     set({ settings: { ...settings } }),

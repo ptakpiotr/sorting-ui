@@ -4,7 +4,7 @@ import AuthComponent from "./Universal/AuthComponent";
 
 function AuthorizedSettings() {
   return (
-    <AuthComponent verifyAdmin={true}>
+    <AuthComponent verifyAdmin={false}>
       <Settings />
     </AuthComponent>
   );

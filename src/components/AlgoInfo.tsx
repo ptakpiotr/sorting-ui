@@ -53,6 +53,7 @@ function AlgoInfo() {
                   )[0]?.photo
                 : "https://placehold.co/600x400"
             }
+            className="main-img"
             alt={"Algorithm photo"}
           />
           <h1>{algorithm?.split("-").join(" ")}</h1>

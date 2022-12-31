@@ -60,3 +60,8 @@ export interface IAlgorithmInfoState {
   algorithms: IAlgorithmCardInfo[];
   setAlgos: (algos: IAlgorithmCardInfo[]) => void;
 }
+export interface IUser {
+  email: string;
+  invalidLogins: number;
+  group: string;
+}
