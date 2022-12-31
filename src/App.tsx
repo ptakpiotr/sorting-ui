@@ -12,9 +12,18 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import SideMenu from "./components/SideMenu";
-import { IAlgorithmCardInfo, IAlgorithmsInfo, ISettings } from "./Types";
+import {
+  IAlgorithmCardInfo,
+  IAlgorithmInfoState,
+  IAlgorithmsInfo,
+  IResultsState,
+  ISettings,
+  ISettingsState,
+} from "./Types";
 import Logout from "./components/Logout";
+import History from "./components/History";
 import AuthorizedSettings from "./components/AuthorizedSettings";
+import AuthorizedHistory from "./components/AuthorizedHistory";
 
 export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
   algorithms: [
@@ -46,7 +55,7 @@ export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
 // bedzie rowniez info odnosnie
 
 export const useResultsStore = zustand(
-  persist(
+  persist<IResultsState>(
     (set, get) => ({
       numbers: Enumerable.range(0, 10)
         .toArray()
@@ -60,7 +69,7 @@ export const useResultsStore = zustand(
   )
 );
 
-export const useSettingsStore = zustand((set, get) => ({
+export const useSettingsStore = zustand<ISettingsState>((set, get) => ({
   settings: {
     allowAddingItems: true,
     displayAlgorithmsDescription: true,
@@ -69,10 +78,18 @@ export const useSettingsStore = zustand((set, get) => ({
     set({ settings: { ...settings } }),
 }));
 
-export const useAlgorithmInfoStore = zustand((set, get) => ({
-  algorithms: [],
-  setAlgos: (algos: IAlgorithmCardInfo[]) => set({ algorithms: algos }),
-}));
+export const useAlgorithmInfoStore = zustand(
+  persist<IAlgorithmInfoState>(
+    (set, get) => ({
+      algorithms: [],
+      setAlgos: (algos: IAlgorithmCardInfo[]) => set({ algorithms: algos }),
+    }),
+    {
+      name: "algorithms",
+      getStorage: () => localStorage,
+    }
+  )
+);
 
 function App() {
   return (
@@ -87,7 +104,8 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
             <Route path="/settings" element={<AuthorizedSettings />} />
-            <Route path="/algoinfo/:id" element={<AlgoInfo />} />
+            <Route path="/algoinfo/:algorithm" element={<AlgoInfo />} />
+            <Route path="/history" element={<AuthorizedHistory />} />
           </Routes>
         </BrowserRouter>
       </MathJaxContext>

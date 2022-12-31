@@ -20,9 +20,43 @@ export enum Actions {
   SWAP,
 }
 
+export enum HistoryWorkerActions {
+  GETHISTORY,
+}
+
 export const AcceptedType = "NUMBER";
 
 export interface ISettings {
   allowAddingItems: boolean;
   displayAlgorithmsDescription: boolean;
+}
+
+export interface IHistoryWorkerArgs {
+  type: HistoryWorkerActions;
+  token: string;
+}
+
+export interface IHistoryItem {
+  numbers: Number[];
+  algorithm: string;
+  date: Date;
+}
+
+export interface IHistoryItems {
+  nums: IHistoryItem[];
+}
+
+export interface IResultsState {
+  numbers: number[];
+  setNumbers: (nums: number[]) => void;
+}
+
+export interface ISettingsState {
+  settings: ISettings;
+  setSettingsOption: (settings: ISettings) => void;
+}
+
+export interface IAlgorithmInfoState {
+  algorithms: IAlgorithmCardInfo[];
+  setAlgos: (algos: IAlgorithmCardInfo[]) => void;
 }

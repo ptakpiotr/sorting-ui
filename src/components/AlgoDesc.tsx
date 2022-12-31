@@ -1,6 +1,7 @@
 import React from "react";
 import shallow from "zustand/shallow";
 import { useSettingsStore } from "../App";
+import { ISettingsState } from "../Types";
 
 interface IProps {
   desc: string;
@@ -8,7 +9,7 @@ interface IProps {
 
 function AlgoDesc({ desc }: IProps) {
   const settings = useSettingsStore(
-    (st: any) => ({
+    (st: ISettingsState) => ({
       allowAddingItems: st.settings.allowAddingItems,
       displayAlgorithmsDescription: st.settings.displayAlgorithmsDescription,
     }),

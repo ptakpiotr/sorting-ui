@@ -187,7 +187,7 @@ a {
 
 .validationMessage {
   font-size: 10px;
-  color: blueviolet;
+  color: darkturquoise;
 }
 
 .rate {
@@ -222,4 +222,51 @@ a {
   border: 1px solid whitesmoke;
   width: 65px;
   margin-bottom: 10px;
+}
+
+th {
+  color: darkturquoise;
+  padding: 10px;
+}
+tr {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+tr:nth-child(2n) {
+  color: dodgerblue;
+}
+td {
+  padding: 5px;
+}
+td:nth-of-type(2n) {
+  border-bottom: 1px solid darkturquoise;
+}
+
+td:hover {
+  border-bottom: 1px solid darkturquoise;
+}
+
+td:nth-of-type(2n):hover {
+  border-bottom: 1px solid dodgerblue;
+}
+
+.loader {
+  width: 25vw;
+  height: 25vw;
+  border-radius: 100%;
+  border: 1px solid cyan;
+  border-bottom: 1px solid dodgerblue;
+  animation: 1s loaderAnim ease-in infinite;
+}
+
+@keyframes loaderAnim {
+  from {
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+h1::first-letter {
+  text-transform: uppercase;
 }

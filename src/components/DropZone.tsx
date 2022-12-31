@@ -3,12 +3,12 @@ import { useDrop } from "react-dnd";
 import shallow from "zustand/shallow";
 import * as yup from "yup";
 
-import { AcceptedType } from "../Types";
+import { AcceptedType, IResultsState } from "../Types";
 import { useResultsStore } from "../App";
 
 function DropZone() {
   const { numbers, setNumbers } = useResultsStore(
-    (st: any) => ({ setNumbers: st.setNumbers, numbers: st.numbers }),
+    (st: IResultsState) => ({ setNumbers: st.setNumbers, numbers: st.numbers }),
     shallow
   );
 
@@ -31,7 +31,11 @@ function DropZone() {
   const schema = yup.object({
     num: yup.number().min(-15).max(50).required(),
   });
-  return <div ref={dropRef} className={"drop-zone"}>Drop here...</div>;
+  return (
+    <div ref={dropRef} className={"drop-zone"}>
+      Drop here...
+    </div>
+  );
 }
 
 export default DropZone;

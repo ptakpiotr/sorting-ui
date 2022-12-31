@@ -7,6 +7,7 @@ import {
   AiOutlineUserAdd,
   AiOutlineSetting,
   AiOutlineLogout,
+  AiOutlineHistory,
 } from "react-icons/ai";
 import MenuLink from "./MenuLink";
 function SideMenu() {
@@ -54,6 +55,12 @@ function SideMenu() {
         icon={<AiFillContacts color={"whitesmoke"} />}
         href={"/about"}
         title="About"
+        fullWidth={fullWidthClass.length > 0 || alwaysFull}
+      />
+      <MenuLink
+        icon={<AiOutlineHistory color={"whitesmoke"} />}
+        href={"/history"}
+        title="History"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       <MenuLink

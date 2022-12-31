@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Switch from "./Universal/MySwitch";
 import { useSettingsStore } from "../App";
+import { ISettingsState } from "../Types";
 function Settings() {
-  const { settings, setSettingsOption } = useSettingsStore((st: any) => st);
+  const { settings, setSettingsOption } = useSettingsStore(
+    (st: ISettingsState) => st
+  );
   useEffect(() => {}, []);
 
   const changeOption = (optionKey: string, optionValue: boolean) => {
@@ -24,7 +27,7 @@ function Settings() {
                   <Switch
                     key={`setting-${s}`}
                     settingName={s}
-                    basicChecked={settings[s]}
+                    basicChecked={true}
                     changeOption={changeOption}
                   />
                 </td>

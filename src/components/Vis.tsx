@@ -1,26 +1,54 @@
 import React, { useRef, useState } from "react";
 import p5 from "p5";
-import { Actions } from "../Types";
-import Enumerable from "linq";
+import { Actions, IResultsState, ISettingsState } from "../Types";
 import DropZone from "./DropZone";
-import DropItem from "./DropItem";
 import { useResultsStore, useSettingsStore } from "../App";
 import DragArea from "./DragArea";
 import shallow from "zustand/shallow";
+import AuthComponent from "./Universal/AuthComponent";
+import axios from "axios";
+import algorithms from "../algorithms";
+import { useParams } from "react-router";
 
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<boolean>(false);
-  const numbers = useResultsStore((st: any) => st.numbers);
+
+  const { algorithm } = useParams();
+
+  const numbers = useResultsStore((st: IResultsState) => st.numbers);
   const settings = useSettingsStore(
-    (st: any) => ({
+    (st: ISettingsState) => ({
       allowAddingItems: st.settings.allowAddingItems,
       displayAlgorithmsDescription: st.settings.displayAlgorithmsDescription,
     }),
     shallow
   );
+
   let data: number[] = [...numbers];
   const oldData: number[] = [...data];
+
+  const addNumbers = () => {
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/numbers`,
+        {
+          numbers: oldData,
+          algorithm: algorithm?.split("-"),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => {
+        alert("Succesfully added numbers");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const sketch = (p: any) => {
     let chosenIndex = 0;
@@ -42,84 +70,21 @@ function Vis() {
       p.text(`${value}`, i * 40 + 5, height);
     }
 
-    function bubbleSort(start: number) {
-      let i = start;
-      for (; i < data.length; i++) {
-        for (let j = i + 1; j < data.length; j++) {
-          let temp = data[i];
-          if (data[j] < data[i]) {
-            data[i] = data[j];
-            data[j] = temp;
-          }
-        }
-      }
-    }
-
-    function selectionSort(end: number) {
-      let i = 0;
-      for (; i < end - 1; i++) {
-        let min = i;
-        for (let j = i + 1; j < data.length; j++) {
-          if (data[j] < data[min]) {
-            min = j;
-          }
-          [data[min], data[i]] = [data[i], data[min]];
-        }
-      }
-    }
-
-    function insertionSort(end: number) {
-      let key, j;
-      for (let i = 1; i < end; i++) {
-        key = data[i];
-        j = i - 1;
-        while (j >= 0 && data[j] > key) {
-          data[j + 1] = data[j];
-          j = j - 1;
-        }
-        data[j + 1] = key;
-      }
-    }
-
-    function countSort(num: number[]) {
-      let max = Math.max(...num);
-      let min = Math.min(...num);
-
-      let range = max - min + 1;
-      let count = Enumerable.repeat(0, range).toArray();
-      let output = Enumerable.repeat(0, num.length).toArray();
-      for (let i = 0; i < num.length; i++) {
-        count[num[i] - min]++;
-      }
-
-      for (let i = 1; i < count.length; i++) {
-        count[i] += count[i - 1];
-      }
-
-      for (let i = num.length - 1; i >= 0; i--) {
-        output[count[num[i] - min] - 1] = num[i];
-        count[num[i] - min]--;
-      }
-
-      for (let i = 0; i < num.length; i++) {
-        num[i] = output[i];
-      }
-      data = num;
-    }
-
     p.draw = () => {
       if (show) {
         p.background(0, 0, 0, 0);
         for (let i = 0; i < oldData.length; i++) {
           drawNumber(i, oldData[i], 100, Actions.COMPARE);
         }
-        insertionSort(chosenIndex++);
+
+        algorithms.get(algorithm)(chosenIndex++, data);
+
         p.clear();
+
         for (let i = 0; i < data.length; i++) {
           drawNumber(i, data[i], p.height - 100, Actions.SORT);
         }
         if (chosenIndex > data.length) {
-          console.log("END");
           p.noLoop();
         }
       }
@@ -133,7 +98,6 @@ function Vis() {
         <div>
           {!show ? (
             <span>
-              <button>Add</button>
               <button
                 onClick={() => {
                   setShow((prev) => !prev);
@@ -141,6 +105,9 @@ function Vis() {
               >
                 Show
               </button>
+              <AuthComponent verifyAdmin={false}>
+                <button onClick={addNumbers}>Add</button>
+              </AuthComponent>
             </span>
           ) : (
             <></>
