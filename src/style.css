@@ -261,10 +261,22 @@ td:nth-of-type(2n):hover {
 }
 .delete-user-btn {
   color: tomato;
+  margin: 10px;
 }
 
 .delete-user-btn:hover {
   color: maroon;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.invalid-logins-user-btn {
+  color: dodgerblue;
+  margin: 10px;
+}
+
+.invalid-logins-user-btn:hover {
+  color: cyan;
   cursor: pointer;
   transform: scale(1.2);
 }

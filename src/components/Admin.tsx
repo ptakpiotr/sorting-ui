@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IUser } from "../Types";
-import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
+import { AiFillDelete, AiOutlineRollback } from "react-icons/ai";
 
 function Admin() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -31,7 +31,27 @@ function Admin() {
         }
       )
       .then((dt) => {
-        console.log("User deleted");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleResetClick = (email: string) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/reset`,
+        {
+          email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((dt) => {
         window.location.reload();
       })
       .catch((err) => {
@@ -64,6 +84,12 @@ function Admin() {
                       className="delete-user-btn"
                       onClick={() => {
                         handleClick(u.email);
+                      }}
+                    />
+                    <AiOutlineRollback
+                      className="invalid-logins-user-btn"
+                      onClick={() => {
+                        handleResetClick(u.email);
                       }}
                     />
                   </td>

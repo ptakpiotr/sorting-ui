@@ -34,7 +34,7 @@ function Vis() {
         `${process.env.REACT_APP_BACKEND_URL}/api/numbers`,
         {
           numbers: oldData,
-          algorithm: algorithm?.split("-"),
+          algorithm: algorithm?.split("-").join(" "),
         },
         {
           headers: {
