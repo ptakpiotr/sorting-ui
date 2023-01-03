@@ -13,7 +13,6 @@ import algorithms from "../algorithms";
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<boolean>(false);
-  const [color, setColor] = useState<string>("red");
 
   const algorithm = new URLSearchParams(window.location.search).get("algo");
   const numbers = useResultsStore((st: IResultsState) => st.numbers);
@@ -28,6 +27,7 @@ function Vis() {
 
   let data: number[] = [...numbers];
   const oldData: number[] = [...data];
+  let j = 0;
 
   const addNumbers = () => {
     axios
@@ -56,6 +56,10 @@ function Vis() {
     p.setup = () => {
       p.createCanvas(600, 200);
       p.frameRate(1);
+
+      if (algorithm === "quick-sort") {
+        algorithms.get("quick-sort")(data, 0, data.length - 1, show);
+      }
     };
 
     function drawNumber(
@@ -64,7 +68,13 @@ function Vis() {
       height: number,
       state: Actions
     ) {
-      p.fill(`${settings.color}`);
+      p.fill(
+        state == Actions.SORT
+          ? `${settings.color}`
+          : Actions.COMPARE
+          ? "whitesmoke"
+          : "maroon"
+      );
       p.rect(i * 40 + 5, height, 30, -value * 2);
       p.fill(255);
       p.noStroke();
@@ -74,17 +84,27 @@ function Vis() {
     p.draw = () => {
       if (show) {
         p.background(0, 0, 0, 0);
-        for (let i = 0; i < oldData.length; i++) {
-          drawNumber(i, oldData[i], 100, Actions.COMPARE);
-        }
-        algorithms.get(algorithm)(chosenIndex++, data);
-
         p.clear();
-
         for (let i = 0; i < data.length; i++) {
-          drawNumber(i, data[i], p.height - 100, Actions.SORT);
+          drawNumber(
+            i,
+            data[i],
+            p.height - 100,
+            i < chosenIndex
+              ? Actions.SORT
+              : i === data.length - 1
+              ? Actions.COMPARE
+              : Actions.SWAP
+          );
         }
-        if (chosenIndex > data.length) {
+        if (algorithm === "bubble-sort") {
+          chosenIndex = algorithms.get("bubble-sort")(data, chosenIndex, j);
+        } else if (algorithm === "counting-sort") {
+          data = algorithms.get(algorithm)(chosenIndex++, oldData);
+        } else if (algorithm !== "quick-sort") {
+          algorithms.get(algorithm)(chosenIndex++, data);
+        }
+        if (chosenIndex > oldData.length) {
           p.noLoop();
         }
       }
@@ -114,9 +134,7 @@ function Vis() {
           )}
           {settings.allowAddingItems && !show ? (
             <>
-              <div>
-                Aby dodać liczbę do sortowania upuść w obszarze poniżej:
-              </div>
+              <div>In order to add number drop the box in area below.</div>
               <DropZone />
               <DragArea />
             </>

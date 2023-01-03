@@ -1,30 +1,7 @@
-# Symulacja algorytmów sortowania
+## Sources
 
-## Table of contents
+https://p5js.org/examples/simulate-bubble-sort.html
 
-- [General info](#general-info)
-- [Technologies](#technologies)
-- [About](#about)
+https://p5js.org/examples/simulate-quicksort.html
 
-## General info
-
-Projekt realizowany w ramach przedmiotu Techniki Internetowe w semestrze 5.
-
-## Technologies
-
-- Node JS + Express
-- React
-- Typescript
-- PostgreSQL
-
-## About
-
-W ramach projektu ujęto wizualizacje następujących algorytmów sortowania:
-
-| Algorytm       | Złożoność             |
-| -------------- | --------------------- |
-| Selection sort | $$\theta{(n^2)}$$     |
-| Bubble sort    | $$\theta{(n^2)}$$     |
-| Insertion sort | $$\theta{(n^2)}$$     |
-| Quick sort     | $$\theta{(nlog(n))}$$ |
-| Counting sort  | $$\theta{(n+k)}$$     |
+https://itnext.io/building-multi-page-application-with-react-f5a338489694
