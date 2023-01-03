@@ -13,14 +13,15 @@ import algorithms from "../algorithms";
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<boolean>(false);
+  const [color, setColor] = useState<string>("red");
 
   const algorithm = new URLSearchParams(window.location.search).get("algo");
-
   const numbers = useResultsStore((st: IResultsState) => st.numbers);
   const settings = useSettingsStore(
     (st: ISettingsState) => ({
       allowAddingItems: st.settings.allowAddingItems,
       displayAlgorithmsDescription: st.settings.displayAlgorithmsDescription,
+      color: st.color,
     }),
     shallow
   );
@@ -63,7 +64,7 @@ function Vis() {
       height: number,
       state: Actions
     ) {
-      p.fill("red");
+      p.fill(`${settings.color}`);
       p.rect(i * 40 + 5, height, 30, -value * 2);
       p.fill(255);
       p.noStroke();

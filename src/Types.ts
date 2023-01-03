@@ -53,7 +53,8 @@ export interface IResultsState {
 
 export interface ISettingsState {
   settings: ISettings;
-  setSettingsOption: (settings: ISettings) => void;
+  setSettingsOption: (settings: ISettings, clr: string) => void;
+  color: string;
 }
 
 export interface IAlgorithmInfoState {

@@ -4,16 +4,21 @@ import { useSettingsStore } from "../App";
 import { ISettingsState } from "../Types";
 import AuthComponent from "./Universal/AuthComponent";
 import Admin from "./Admin";
+import { useState } from "react";
 function Settings() {
   const { settings, setSettingsOption } = useSettingsStore(
     (st: ISettingsState) => st
   );
+  const [color, setColor] = useState<string>("");
 
   const changeOption = (optionKey: string, optionValue: boolean) => {
-    setSettingsOption({
-      ...settings,
-      [optionKey]: optionValue,
-    });
+    setSettingsOption(
+      {
+        ...settings,
+        [optionKey]: optionValue,
+      },
+      color
+    );
   };
   return (
     <main>
@@ -36,6 +41,15 @@ function Settings() {
                 </tr>
               );
             })}
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => {
+              setSettingsOption({ ...settings }, e.target.value);
+              setColor(e.target.value);
+            }}
+            title="Color"
+          />
         </tbody>
       </table>
       <AuthComponent verifyAdmin={true}>

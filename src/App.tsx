@@ -61,7 +61,9 @@ export const useSettingsStore = zustand(
             '{"allowAddingItems":true,"displayAlgorithmsDescription":true,"__v":0}'
         ),
       },
-      setSettingsOption: (st: ISettings) => set({ settings: { ...st } }),
+      color: "red",
+      setSettingsOption: (st: ISettings, clr: string) =>
+        set({ settings: { ...st }, color: clr }),
     }),
     {
       name: "profile",
