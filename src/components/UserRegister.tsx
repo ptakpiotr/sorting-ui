@@ -1,5 +1,6 @@
+import * as React from "react";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import * as yup from "yup";
 
 function UserRegister() {

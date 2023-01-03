@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import p5 from "p5";
+import * as React from "react";
+import { useRef, useState } from "react";
+import * as p5 from "p5";
 import { Actions, IResultsState, ISettingsState } from "../Types";
 import DropZone from "./DropZone";
 import { useResultsStore, useSettingsStore } from "../App";
@@ -8,13 +9,12 @@ import shallow from "zustand/shallow";
 import AuthComponent from "./Universal/AuthComponent";
 import axios from "axios";
 import algorithms from "../algorithms";
-import { useParams } from "react-router";
 
 function Vis() {
   const sketchDivRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<boolean>(false);
 
-  const { algorithm } = useParams();
+  const algorithm = new URLSearchParams(window.location.search).get("algo");
 
   const numbers = useResultsStore((st: IResultsState) => st.numbers);
   const settings = useSettingsStore(
@@ -76,7 +76,6 @@ function Vis() {
         for (let i = 0; i < oldData.length; i++) {
           drawNumber(i, oldData[i], 100, Actions.COMPARE);
         }
-
         algorithms.get(algorithm)(chosenIndex++, data);
 
         p.clear();

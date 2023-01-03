@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AiFillHome,
   AiFillContacts,
@@ -47,32 +48,32 @@ function SideMenu() {
       </div>
       <MenuLink
         icon={<AiFillHome color={"whitesmoke"} />}
-        href={"/"}
+        href={"./index.html"}
         title="Home"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       <MenuLink
         icon={<AiFillContacts color={"whitesmoke"} />}
-        href={"/about"}
+        href={"./about.html"}
         title="About"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       <MenuLink
         icon={<AiOutlineHistory color={"whitesmoke"} />}
-        href={"/history"}
+        href={"./history.html"}
         title="History"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       <MenuLink
         icon={<AiOutlineSetting color={"whitesmoke"} />}
-        href={"/settings"}
+        href={"./settings.html"}
         title="Settings"
         fullWidth={fullWidthClass.length > 0 || alwaysFull}
       />
       {loggedIn ? (
         <MenuLink
           icon={<AiOutlineLogout color={"whitesmoke"} />}
-          href={"/logout"}
+          href={"./logout.html"}
           title="Logout"
           fullWidth={fullWidthClass.length > 0 || alwaysFull}
         />
@@ -80,13 +81,13 @@ function SideMenu() {
         <>
           <MenuLink
             icon={<AiOutlineUserSwitch color={"whitesmoke"} />}
-            href={"/login"}
+            href={"./login.html"}
             title="Login"
             fullWidth={fullWidthClass.length > 0 || alwaysFull}
           />
           <MenuLink
             icon={<AiOutlineUserAdd color={"whitesmoke"} />}
-            href={"/register"}
+            href={"./register.html"}
             title="Register"
             fullWidth={fullWidthClass.length > 0 || alwaysFull}
           />

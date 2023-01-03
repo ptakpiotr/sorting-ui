@@ -1,5 +1,6 @@
+import * as React from "react";
 import axios from "axios";
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 interface IProps {
   verifyAdmin: boolean;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Switch from "./Universal/MySwitch";
 import { useSettingsStore } from "../App";
 import { ISettingsState } from "../Types";
@@ -10,7 +10,6 @@ function Settings() {
   );
 
   const changeOption = (optionKey: string, optionValue: boolean) => {
-    console.log(settings);
     setSettingsOption({
       ...settings,
       [optionKey]: optionValue,

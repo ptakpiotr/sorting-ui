@@ -1,7 +1,9 @@
+import * as React from "react";
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSettingsStore } from "../App";
 import { ISettingsState } from "../Types";
+import { init } from "../createPage";
 function Logout() {
   const { settings } = useSettingsStore((st: ISettingsState) => st);
 
@@ -30,4 +32,4 @@ function Logout() {
   return <></>;
 }
 
-export default Logout;
+init(<Logout />);

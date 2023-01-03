@@ -1,6 +1,6 @@
+import * as React from "react";
 import { MathJax } from "better-react-mathjax";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 interface IProps {
   description: string;
   title: string;
@@ -13,7 +13,7 @@ function AlgoBox({ description, title, link, photo, complexity }: IProps) {
   const [showMoreInfo, setShowMoreInfo] = useState<boolean>();
 
   return (
-    <Link to={link}>
+    <a href={link}>
       <div
         className="algo-box"
         onMouseEnter={() => {
@@ -45,7 +45,7 @@ function AlgoBox({ description, title, link, photo, complexity }: IProps) {
           )}
         </div>
       </div>
-    </Link>
+    </a>
   );
 }
 

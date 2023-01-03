@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 
 import Enumerable from "linq";
 import { AiTwotoneStar } from "react-icons/ai";

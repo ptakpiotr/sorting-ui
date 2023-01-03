@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import shallow from "zustand/shallow";
 import { useSettingsStore } from "../App";
 import { ISettingsState } from "../Types";

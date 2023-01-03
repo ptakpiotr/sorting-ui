@@ -1,5 +1,6 @@
+import * as React from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlgorithmInfoStore } from "../App";
 import { IAlgorithmCardInfo, IAlgorithmInfoState } from "../Types";
 import AlgoBox from "./AlgoBox";
@@ -31,7 +32,9 @@ function Intro() {
               title={a.name}
               photo={a.photo}
               complexity={a.complexity}
-              link={`algoinfo/${a.name.replace(" ", "-").toLowerCase()}`}
+              link={`algoinfo.html?algo=${a.name
+                .replace(" ", "-")
+                .toLowerCase()}`}
             />
           );
         })

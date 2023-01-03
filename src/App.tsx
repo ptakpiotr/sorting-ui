@@ -1,16 +1,7 @@
-import { MathJaxContext } from "better-react-mathjax";
-import React from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import * as React from "react";
 import zustand from "zustand";
 import { persist } from "zustand/middleware";
 import Enumerable from "linq";
-import About from "./components/About";
-import AlgoInfo from "./components/AlgoInfo";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import SideMenu from "./components/SideMenu";
 import {
   IAlgorithmCardInfo,
@@ -20,9 +11,6 @@ import {
   ISettings,
   ISettingsState,
 } from "./Types";
-import Logout from "./components/Logout";
-import AuthorizedSettings from "./components/AuthorizedSettings";
-import AuthorizedHistory from "./components/AuthorizedHistory";
 
 export const useAlgorithmStore = zustand<IAlgorithmsInfo>(() => ({
   algorithms: [
@@ -64,16 +52,23 @@ export const useResultsStore = zustand(
   )
 );
 
-export const useSettingsStore = zustand<ISettingsState>((set, get) => ({
-  settings: {
-    ...JSON.parse(
-      localStorage.getItem("profile") ||
-        '{"allowAddingItems":true,"displayAlgorithmsDescription":true,"__v":0}'
-    ),
-  },
-  setSettingsOption: (settings: ISettings) =>
-    set({ settings: { ...settings } }),
-}));
+export const useSettingsStore = zustand(
+  persist<ISettingsState>(
+    (set, get) => ({
+      settings: {
+        ...JSON.parse(
+          localStorage.getItem("profile") ||
+            '{"allowAddingItems":true,"displayAlgorithmsDescription":true,"__v":0}'
+        ),
+      },
+      setSettingsOption: (st: ISettings) => set({ settings: { ...st } }),
+    }),
+    {
+      name: "profile",
+      getStorage: () => localStorage,
+    }
+  )
+);
 
 export const useAlgorithmInfoStore = zustand(
   persist<IAlgorithmInfoState>(
@@ -90,23 +85,9 @@ export const useAlgorithmInfoStore = zustand(
 
 function App() {
   return (
-    <DndProvider backend={HTML5Backend}>
-      <MathJaxContext>
-        <BrowserRouter>
-          <SideMenu />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/settings" element={<AuthorizedSettings />} />
-            <Route path="/algoinfo/:algorithm" element={<AlgoInfo />} />
-            <Route path="/history" element={<AuthorizedHistory />} />
-          </Routes>
-        </BrowserRouter>
-      </MathJaxContext>
-    </DndProvider>
+    <>
+      <SideMenu />
+    </>
   );
 }
 

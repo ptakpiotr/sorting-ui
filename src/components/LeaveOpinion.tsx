@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { RiBearSmileLine } from "react-icons/ri";
 import * as yup from "yup";
 

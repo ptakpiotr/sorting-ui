@@ -1,5 +1,6 @@
+import * as React from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IUser } from "../Types";
 import { AiFillDelete, AiOutlineRollback } from "react-icons/ai";
 
