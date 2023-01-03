@@ -35,7 +35,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --mode development --hot --port 3000",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production --config webpack.prod.config.js"
   },
   "eslintConfig": {
     "extends": [
