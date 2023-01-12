@@ -158,8 +158,8 @@ a {
 }
 
 .sketch-div {
-  min-width: 800px;
-  min-height: 500px;
+  min-width: 600px;
+  min-height: 200px;
 }
 .drop-item {
   padding: 20px;
@@ -298,8 +298,37 @@ h1::first-letter {
   max-width: 70vw;
 }
 
+.react-colorful{
+  margin:10px;
+  padding:10px;
+}
+
+.num-display-container{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+}
+
+.num-display-value{
+  flex:1;
+  margin:5px;
+  padding:5px;
+  background-color: darkblue;
+  color:whitesmoke;
+  border:1px solid whitesmoke;
+}
+
+.err-message{
+  font-size:0.75rem;
+  color:tomato;
+}
+
 @media (min-width: 768px) {
   .main-img {
     max-width: 50vw;
   }
+}
+.sketch-container{
+  display: flex;
+  flex-direction: column;
 }

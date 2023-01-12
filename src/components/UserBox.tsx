@@ -6,7 +6,7 @@ import * as yup from "yup";
 function UserBox() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [message, _] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const shape = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -30,10 +30,12 @@ function UserBox() {
               localStorage.removeItem("token");
               localStorage.setItem("token", dt.data.token);
               localStorage.setItem("profile", JSON.stringify(dt.data.profile));
+              setMessage("");
+              
               window.location.reload();
             })
             .catch((err) => {
-              console.error(err);
+              setMessage("Account doesn't exist or credentials invalid");
             });
         }
 
@@ -41,6 +43,7 @@ function UserBox() {
         setPassword("");
       })
       .catch((err) => {
+        setMessage(err);
         setEmail("");
         setPassword("");
       });
@@ -65,7 +68,7 @@ function UserBox() {
           }}
         />
         <button type="submit">Login</button>
-        <span>{message}</span>
+        <span className="err-message">{message}</span>
       </form>
     </div>
   );

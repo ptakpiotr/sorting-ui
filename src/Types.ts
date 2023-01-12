@@ -66,3 +66,10 @@ export interface IUser {
   invalidLogins: number;
   group: string;
 }
+
+export interface IOpinion{
+  id:string;
+  text:string;
+  author:string;
+  rating:number;
+}

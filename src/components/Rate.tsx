@@ -7,10 +7,16 @@ import { AiTwotoneStar } from "react-icons/ai";
 interface IProps {
   maxScore: number;
   fun: (score: number) => any;
+  notEditable?: boolean;
+  actualScore?:number;
 }
-function Rate({ maxScore, fun }: IProps) {
+function Rate({ maxScore, fun, notEditable,actualScore }: IProps) {
   const [score, setScore] = useState<number>(0);
-
+  useEffect(()=>{
+    if(notEditable && actualScore){
+      setScore(actualScore);
+    }
+  },[]);
   useEffect(() => {
     fun(score);
   }, [score]);
@@ -25,7 +31,9 @@ function Rate({ maxScore, fun }: IProps) {
               key={`star-${s}-yellow`}
               className="singleBean"
               onMouseEnter={() => {
-                setScore(s + 1);
+                if (!notEditable) {
+                  setScore(s + 1);
+                }
               }}
             />
           );
@@ -38,7 +46,9 @@ function Rate({ maxScore, fun }: IProps) {
               key={`star-${s}-dark`}
               className="singleBeanInactive"
               onMouseEnter={() => {
-                setScore((prev) => prev + s + 1);
+                if (!notEditable) {
+                  setScore((prev) => prev + s + 1);
+                }
               }}
             />
           );

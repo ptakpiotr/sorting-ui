@@ -54,7 +54,9 @@ function Vis() {
   const sketch = (p: any) => {
     let chosenIndex = 0;
     p.setup = () => {
-      p.createCanvas(600, 200);
+      const canvas = p.createCanvas(600, 200);
+      canvas.parent('sketch-div');
+
       p.frameRate(1);
 
       if (algorithm === "quick-sort") {
@@ -113,8 +115,8 @@ function Vis() {
   const p5Sketch = new p5(sketch, sketchDivRef.current!);
   return (
     <div>
-      <div>
-        <div ref={sketchDivRef} className="sketch-div"></div>
+      <div className="sketch-container">
+        <div ref={sketchDivRef} className="sketch-div" id="sketch-div"></div>
         <div>
           {!show ? (
             <span>

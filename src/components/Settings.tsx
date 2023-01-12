@@ -1,10 +1,12 @@
 import * as React from "react";
 import Switch from "./Universal/MySwitch";
+import { HexColorPicker } from "react-colorful";
 import { useSettingsStore } from "../App";
 import { ISettingsState } from "../Types";
 import AuthComponent from "./Universal/AuthComponent";
 import Admin from "./Admin";
 import { useState } from "react";
+
 function Settings() {
   const { settings, setSettingsOption } = useSettingsStore(
     (st: ISettingsState) => st
@@ -22,6 +24,13 @@ function Settings() {
   };
   return (
     <main>
+      <h3
+        style={{
+          display: "inline-block",
+        }}
+      >
+        Settings
+      </h3>
       <table>
         <tbody>
           {Object.keys(settings)
@@ -41,15 +50,20 @@ function Settings() {
                 </tr>
               );
             })}
-          <input
-            type="color"
-            value={color}
-            onChange={(e) => {
-              setSettingsOption({ ...settings }, e.target.value);
-              setColor(e.target.value);
-            }}
-            title="Color"
-          />
+
+          <tr>
+            <td>barColor</td>
+            <td>
+              <HexColorPicker
+                color={color}
+                onChange={(val) => {
+                  setSettingsOption({ ...settings }, val);
+                  setColor(val);
+                }}
+                title="Color"
+              />
+            </td>
+          </tr>
         </tbody>
       </table>
       <AuthComponent verifyAdmin={true}>

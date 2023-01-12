@@ -17,6 +17,7 @@ import { init } from "../createPage";
 import LeaveOpinion from "../components/LeaveOpinion";
 import Rate from "../components/Rate";
 import AuthComponent from "../components/Universal/AuthComponent";
+import Opinions from "../components/Opinions";
 
 const socket = io(process.env.REACT_APP_BACKEND_URL!, {
   extraHeaders: {
@@ -99,6 +100,7 @@ function About() {
             />
             <button onClick={handleClick}>Submit opinion</button>
           </div>
+          <Opinions />
         </AuthComponent>
       </main>
     </MathJaxContext>

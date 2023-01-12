@@ -46,8 +46,10 @@ function UserRegister() {
               window.location.reload();
             })
             .catch((err) => {
-              console.error(err);
+              setMessage(err.message);
             });
+        }else{
+          setMessage("Couldn't create user with given credentials");
         }
 
         setEmail("");
@@ -55,6 +57,7 @@ function UserRegister() {
         setConfirmPassword("");
       })
       .catch((err) => {
+        setMessage(err);
         setEmail("");
         setPassword("");
         setConfirmPassword("");
@@ -88,6 +91,7 @@ function UserRegister() {
           }}
         />
         <button type="submit">Register</button>
+        <span className="err-message">{message}</span>
       </form>
     </div>
   );

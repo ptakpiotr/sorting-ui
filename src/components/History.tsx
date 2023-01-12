@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { HistoryWorkerActions, IHistoryItems } from "../Types";
 import Loader from "./Universal/Loader";
+import NumbersDisplay from "./Universal/NumbersDisplay";
 
 function History() {
   const worker = useMemo(
@@ -33,7 +34,7 @@ function History() {
           display: "inline-block",
         }}
       >
-        Here is your sorting history
+        History
       </h3>
       {isLoading ? (
         <Loader />
@@ -50,7 +51,7 @@ function History() {
             {data?.nums?.map((dt) => {
               return (
                 <tr key={`sorting-${dt.date}`}>
-                  <td>{JSON.stringify(dt.numbers)}</td>
+                  <td><NumbersDisplay numbers={dt.numbers} /></td>
                   <td>{dt.algorithm}</td>
                   <td>{new Date(dt.date).toUTCString()}</td>
                 </tr>
