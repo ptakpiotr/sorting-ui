@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import * as p5 from "p5";
 import { Actions, IResultsState, ISettingsState } from "../Types";
 import DropZone from "./DropZone";
@@ -59,7 +59,6 @@ function Vis({show,setShow}:IProps) {
     let chosenIndex = 0;
     p.setup = () => {
       const canvas = p.createCanvas(600, 200);
-      canvas.parent('sketch-div');
 
       p.frameRate(1);
 
@@ -95,7 +94,7 @@ function Vis({show,setShow}:IProps) {
           drawNumber(
             i,
             data[i],
-            p.height - 150,
+            p.height - 50,
             i < chosenIndex
               ? Actions.SORT
               : i === data.length - 1
@@ -120,12 +119,18 @@ function Vis({show,setShow}:IProps) {
   return (
     <div>
       <div className="sketch-container">
-        <div ref={sketchDivRef} className="sketch-div" id="sketch-div"></div>
+        <div ref={sketchDivRef} className="sketch-div"></div>
         <div>
           {!show ? (
             <span>
               <button
                 onClick={() => {
+                  let canvasElems = document.getElementsByTagName("canvas");
+                  let canvasLen = canvasElems.length;
+                  for(let i = 0;i<canvasLen-1;i++){
+                    canvasElems[i].remove();
+                  }
+
                   setShow((prev) => !prev);
                 }}
               >
