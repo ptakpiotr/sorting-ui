@@ -10,9 +10,13 @@ import AuthComponent from "./Universal/AuthComponent";
 import axios from "axios";
 import algorithms from "../algorithms";
 
-function Vis() {
+interface IProps{
+  setShow :React.Dispatch<React.SetStateAction<boolean>>;
+  show:boolean;
+}
+
+function Vis({show,setShow}:IProps) {
   const sketchDivRef = useRef<HTMLDivElement>(null);
-  const [show, setShow] = useState<boolean>(false);
 
   const algorithm = new URLSearchParams(window.location.search).get("algo");
   const numbers = useResultsStore((st: IResultsState) => st.numbers);
@@ -74,13 +78,13 @@ function Vis() {
         state == Actions.SORT
           ? `${settings.color}`
           : Actions.COMPARE
-          ? "whitesmoke"
+          ? "blue"
           : "maroon"
       );
       p.rect(i * 40 + 5, height, 30, -value * 2);
       p.fill(255);
       p.noStroke();
-      p.text(`${value}`, i * 40 + 5, height);
+      p.text(`${value}`, i * 40 + 5, height-10);
     }
 
     p.draw = () => {
@@ -91,7 +95,7 @@ function Vis() {
           drawNumber(
             i,
             data[i],
-            p.height - 100,
+            p.height - 150,
             i < chosenIndex
               ? Actions.SORT
               : i === data.length - 1

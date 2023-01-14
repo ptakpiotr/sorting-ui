@@ -6,6 +6,7 @@ import { ISettingsState } from "../Types";
 import AuthComponent from "./Universal/AuthComponent";
 import Admin from "./Admin";
 import { useState } from "react";
+import {mappings} from "../assets/nameMappings";
 
 function Settings() {
   const { settings, setSettingsOption } = useSettingsStore(
@@ -38,7 +39,7 @@ function Settings() {
             .map((s) => {
               return (
                 <tr>
-                  <td>{s}</td>
+                  <td>{(mappings.get(s))}</td>
                   <td>
                     <Switch
                       key={`setting-${s}`}
@@ -52,7 +53,7 @@ function Settings() {
             })}
 
           <tr>
-            <td>barColor</td>
+            <td>{mappings.get("barColor")}</td>
             <td>
               <HexColorPicker
                 color={color}

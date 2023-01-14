@@ -14,8 +14,9 @@ import { init } from "../createPage";
 function AlgoInfo() {
   const algorithm = new URLSearchParams(window.location.search).get("algo");
   const [description, setDescription] = useState<string>("");
-  const { algorithms } = useAlgorithmInfoStore((st: IAlgorithmInfoState) => st);
+  const [showAnimation,setShowAnimation] = useState<boolean>(false);
 
+  const { algorithms } = useAlgorithmInfoStore((st: IAlgorithmInfoState) => st);
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -63,12 +64,13 @@ function AlgoInfo() {
               alt={"Algorithm photo"}
             />
             <h1>{algorithm?.split("-").join(" ")}</h1>
+          
           </section>
-          <AuthComponent verifyAdmin={false}>
+          {!showAnimation?<AuthComponent verifyAdmin={false}>
             {description ? <AlgoDesc desc={description} /> : <Loader />}
-          </AuthComponent>
+          </AuthComponent>:<></>}
           <section>
-            <Vis />
+            <Vis show={showAnimation} setShow={setShowAnimation} />
           </section>
         </article>
       </main>

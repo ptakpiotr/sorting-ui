@@ -1,35 +1,59 @@
+import axios from "axios";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { IOpinion } from "../Types";
 import Rate from "./Rate";
+import {io} from "socket.io-client";
+
+const socket = io(process.env.REACT_APP_BACKEND_URL!,{
+  extraHeaders: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+});
 
 function Opinions() {
-  const [opinions, setOpinions] = useState<IOpinion[]>([
-    {
-      id: "opinion-1",
-      author: "p@p.com",
-      rating: 4,
-      text: "test test",
-    },
-  ]);
-  useEffect(() => {}, []);
+  const [opinions, setOpinions] = useState<IOpinion[]>();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    
+    socket.on("allOpinions",(data)=>{
+      setOpinions(data);
+    });
+
+    if (token) {
+      axios
+        .post(`${process.env.REACT_APP_BACKEND_URL}/api/user/verify`, {
+          token,
+          verifyAdmin: true,
+        })
+        .then((dt) => {
+          socket.emit("getOpinions");
+        })
+        .catch((err) => {});
+    }
+  }, []);
   return (
     <div>
       <table>
         <thead>
           <tr>
-            <td>Author</td>
             <td>Text</td>
             <td>Rating</td>
           </tr>
         </thead>
         <tbody>
-          {opinions.map((o) => {
+          {opinions?.map((o) => {
             return (
-              <tr key={o.id}>
-                <td>{o.author}</td>
+              <tr key={o._id}>
                 <td>{o.text}</td>
-                <td><Rate fun={(_)=>{}}  maxScore={5} actualScore={o.rating} notEditable={true}/></td>
+                <td>
+                  <Rate
+                    fun={(_) => {}}
+                    maxScore={5}
+                    actualScore={o.rating}
+                    notEditable={true}
+                  />
+                </td>
               </tr>
             );
           })}

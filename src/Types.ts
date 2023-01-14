@@ -68,8 +68,7 @@ export interface IUser {
 }
 
 export interface IOpinion{
-  id:string;
+  _id:string;
   text:string;
-  author:string;
   rating:number;
 }
