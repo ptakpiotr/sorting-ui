@@ -31,7 +31,7 @@ function AuthComponent({ children, verifyAdmin }: PropsWithChildren<IProps>) {
           You are not authorized to access this resource. Please log in or
           register.
           <br />
-          <a href="../login.html">Login</a> <a href="../register.html">Register</a>
+          <a href="./login.html">Login</a> <a href="./register.html">Register</a>
         </div>
       )}
     </>
