@@ -21,7 +21,7 @@ function bubbleSort(data: number[], i: number, j: number) {
 
 function selectionSort(end: number, data: number[]) {
   let i = 0;
-  for (; i < end - 1; i++) {
+  for (; i <= end - 1; i++) {
     let min = i;
     for (let j = i + 1; j < data.length; j++) {
       if (data[j] < data[min]) {
@@ -34,7 +34,7 @@ function selectionSort(end: number, data: number[]) {
 
 function insertionSort(end: number, data: number[]) {
   let key, j;
-  for (let i = 1; i < end; i++) {
+  for (let i = 1; i <= end; i++) {
     key = data[i];
     j = i - 1;
     while (j >= 0 && data[j] > key) {

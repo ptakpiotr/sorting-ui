@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef } from "react";
+import { useRef,useCallback } from "react";
 import * as p5 from "p5";
 import { Actions, IResultsState, ISettingsState } from "../Types";
 import DropZone from "./DropZone";
@@ -59,7 +59,6 @@ function Vis({show,setShow}:IProps) {
     let chosenIndex = 0;
     p.setup = () => {
       const canvas = p.createCanvas(600, 200);
-
       p.frameRate(1);
 
       if (algorithm === "quick-sort") {
